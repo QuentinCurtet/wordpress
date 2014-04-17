@@ -6,5 +6,22 @@ FROM ubuntu
  RUN sed -i 's/;daemonize = yes/daemonize = no/g' /etc/php5/fpm/php-fpm.conf
  ADD www.conf /etc/php5/fpm/pool.d/
  ADD index.php /var/www/
-EXPOSE 9000
-CMD ["php-fpm"]
+ 
+ # Install Wordpress
+ ADD http://wordpress.org/latest.tar.gz /usr/share/nginx/latest.tar.gz
+ RUN cd /usr/share/nginx/ && tar xvf latest.tar.gz && rm latest.tar.gz
+ RUN mv /usr/share/nginx/www/5* /usr/share/nginx/wordpress
+ RUN rm -rf /usr/share/nginx/www
+ RUN mv /usr/share/nginx/wordpress /usr/share/nginx/www
+ RUN chown -R wordpress:www-data /usr/share/nginx/www
+ RUN chmod -R 775 /usr/share/nginx/www
+ 
+ # Wordpress Initialization and Startup Script
+ ADD ./start.sh /start.sh
+ RUN chmod 755 /start.sh
+
+ 
+ # private expose
+ EXPOSE 80
+
+CMD ["/bin/bash", "/start.sh"]
