@@ -7,6 +7,6 @@ FROM ubuntu
  ADD www.conf /etc/php5/fpm/pool.d/
  ADD index.php /var/www/
  # private expose
- EXPOSE 80
-
-CMD ["/bin/bash", "/start.sh"]
+ EXPOSE 9000
+ 
+CMD ["php-fpm"]
