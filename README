@@ -1,0 +1,55 @@
+Bonjour
+
+Malheureusement mon projet ne marche pas, la seule chose que je peux vous propser, c'est la démarche pour afficher phpinfo();
+
+
+
+Procédure pour afficher phpinfo();
+
+
+Tout d'abord, vous devez créer un clone du dossier epsi-ha-2014-tp sur votre bureau, pour cela, suivez le lien https://github.com/quentincurtet/epsi-ha-2014-tp et faites "Clone in desktop".
+
+Puis vous accéder à celui-ci via Console, grâce aux commandes: "cd Desktop" puis "cd epsi-ha-2014-tp"
+
+Ensuite vous faites un "vagrant up" dans ce dossier, puis un "vagrant ssh" afin de vous connecter à CoreOS.
+
+Puis vous faites un clone de mon dépot Wordpress sur la machine grâce à la commande : "git clone https://github.comm/quentincurtet/wordpress/"
+
+Normalement vous avez un dossier wordpress qui est apparu lorsque vous faites la commande "ls".
+
+Maintenant faites un clone du dossier tutum-docker-mysql, ce dossier contient mysql : "git clone https://github.com/quentincurtet/tutum-docker-mysql/"
+
+Normalement vous avez un dossier tutum-docker-mysql qui est apparu lorsque vous faites la commande "ls".
+
+Maintenant on va build les images de nginx, php-fpm et mysql: 
+- faites la commande "docker build -t mysql tutum-docker-mysql/"
+- puis la commande "docker build -t nginx wordpress/ubuntu-nginx/"
+- puis la commande "docker build -t phpfpm wordpress/php-fpm/"
+
+Les builds ont été fait, vous pouvez voir les images grâce à la commande "docker images".
+
+Maintenant on va lancer les containeur :
+- faites la commande : "docker run -d -p 3306:3306 mysql"
+- puis la commande : "docker run -d -p 9000:9000 phpfpm"
+- puis la commande : "docker run -d -p 80:80 nginx"
+
+Maintenant que vos 3 containeurs sont lancés, aller sur votre navigateur préferé et aller à l'adresse : 127.0.0.1:5080, vous verrez un "hello world" et si vous modifiez l'adresse en 127.0.0.1:5080/index.php , phpinfo() apparaitra.
+
+
+Voila, désolé de ne pas pouvoir rendre quelquechose de digne.
+
+
+
+
+Sinon j'avais pensé à installer plusieurs wordpress en parallèle, lorsque le wordpress principal a besoin de faire une mise à jour, on copie ce dernier à la place d'un autre wordpress afin de garder les données existante et on fait une redirection de ports du deuxième wordpress sur le port du premier pour que le wordpress soit toujours accessible, puis on fait la mise à jour du premier wordpress et ensuite on remet les ports comme avant et voila le wordpress est mis à jour, le seul problème est que cela n'utilise ni nginx ni php-fpm.
+
+
+
+Quentin Curtet B3I
+
+
+
+
+
+
+
