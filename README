@@ -1,7 +1,8 @@
 Bonjour
 
-Malheureusement mon projet ne marche pas, la seule chose que je peux vous propser, c'est la démarche pour afficher phpinfo();
-
+Malheureusement je n'ai pas réussi à faire communiquer Wordpress php-fpm et nginx, j'ai le conteneur MySQL car c'est le même que l'on avait installé en cours avec vous.
+Concernant Wordpress, j'avais essayé de modifier un de mes DockerFile pour que Wordpress s'installe dans un containeur, mais lorsque j'allais sur 127.0.0.1:5080, il n'y avait rien qui s'affichait, ni code php pour Woprdress, ni l'interface admin de Wordpress, mais je n'ai pas réussi à activer Wordpress et il n'y avais pas de lien entre wordpress et mysql.
+La seule chose que je peux vous propser, c'est la démarche pour afficher phpinfo();
 
 
 Procédure pour afficher phpinfo();
